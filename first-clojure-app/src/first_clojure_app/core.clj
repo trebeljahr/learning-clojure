@@ -155,3 +155,51 @@
 (map inc my_numbers)
 (defn double [arg] (* arg 2))
 (map double my_numbers)
+
+;; functions can have docstrings - which is nice - like so: 
+(defn my_docstring_func
+  "This can be a short description of the function!"
+  [arg] (* arg arg))
+(my_docstring_func 4)
+
+;; functions can do different things based on the numbers of inputs given
+(defn awesome_func
+  ([one_arg] (str one_arg))
+  ([one_arg two_arg] (* one_arg two_arg))
+  ([one_arg two_arg three_arg]
+   (+ one_arg (get two_arg three_arg))))
+
+(awesome_func "Hello")
+(awesome_func 2 5)
+(awesome_func 1 {:numberToAdd 2} :numberToAdd)
+
+(defn overload_me
+  ([arg second_arg] (str arg " " second_arg))
+  ([arg] (str "Hello " arg)))
+
+(overload_me "Hello" "world")
+(overload_me "world")
+
+;; Clojure has argument destructuring for functions. Much like javascript... 
+;; wait that is the wrong order - javascript has destructuring much like clojure/LISP
+(defn destructured
+  [[first_thing_in_vector & other_things_in_vector]]
+  (+ first_thing_in_vector (if (= other_things_in_vector nil)
+                             (destructured other_things_in_vector)
+                             (0))))
+(def some_numbers [1 2 3])
+(destructured some_numbers)
+
+(defn destructure_map
+  [{key1 :key1 key2 :key2}]
+  (str key1 " " key2))
+(destructure_map {:key1 "Hello" :key2 "World!"})
+
+(defn destructure_keys
+  [{:keys [key1 key2 key3 key4]}]
+  (str key1 " " key2 " " key3 " " key4 " cool!"))
+(destructure_keys {:key1 "Hello" :key2 "World" :key3 "this" :key4 "is"})
+
+;; some last comment!
+
+
