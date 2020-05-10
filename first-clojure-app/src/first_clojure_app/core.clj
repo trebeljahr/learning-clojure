@@ -135,9 +135,23 @@
 ;; this is how you call it
 (my_function "hello")
 
+;; you can have functions with multiple arguments
 (defn my_other_function [argument argument2 argument3]
   (str argument " " argument2 " " argument3))
 (my_other_function "Hello" "there" "buddy")
 
+;; you can have variadic functions like this
 (defn variadic_func [argument & others]    (str argument " " (clojure.string/join " " others)))
 (variadic_func "Hi" "my" "friend" "you" "are" "cool")
+
+;; higher order functions like this
+(defn higher_order_func [fnArg] (fnArg " world!"))
+(defn function_argument [arg] (str "Hello " arg))
+(higher_order_func function_argument)
+
+;; there are also some built in higher order functions like map for example
+(inc 2)
+(def my_numbers [1 2 3])
+(map inc my_numbers)
+(defn double [arg] (* arg 2))
+(map double my_numbers)
