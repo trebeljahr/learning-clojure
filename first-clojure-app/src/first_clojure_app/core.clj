@@ -19,8 +19,8 @@
 (when true (str "Success!"
                 " Something Else!"))
 
-// Conditionals 
-(if true 
+;; Conditionals 
+(if true
   "Hello there"
   "Well...")
 
@@ -28,7 +28,7 @@
   "Hello there"
   "Well...")
 
-// All Nil Things
+;; All Nil Things
 (nil? 1)
 (nil? (str "Hello there"))
 (nil? 0)
@@ -36,42 +36,43 @@
 (nil? false)
 (nil? nil)
 
-(if nil 
+(if nil
   "Nil is true value"
-  "Nil is a lie!"
-  )
+  "Nil is a lie!")
 
-// Logical operators!
+;; Logical operators!
+
+
 (= 1 -1)
 (= 1 1)
 (= nil 2)
 (= nil nil)
 
-// or returns the first true value
+;; or returns the first true value
 (or false false false false false "Hello there")
 (or false true)
 
-// and returns the first false value or the last true value
+;; and returns the first false value or the last true value
 (and false false)
 (and false true)
 (and true true "Hello!")
 
-// defining variables with def 
+;; defining variables with def 
 
-// There are strings...
+;; There are strings...
 (def my_name "Rico")
 (str "Hello " my_name)
 
-// and numbers...
+;; and numbers...
 (def my_age 21)
 (str "I am " my_age " years old!")
 
-// and vectors...
+;; and vectors...
 (def my_greetings ["Hi" "Hello" "Howdy" "How are you"])
 (get my_greetings 0)
 (get my_greetings 1)
 
-// vectors can contain mixed types 
+;; vectors can contain mixed types 
 (def my_vectors ["HI" 0 true false -1 nil {:key "value"}])
 (my_vectors 0)
 (my_vectors 6)
@@ -80,7 +81,7 @@
 (conj my_vectors "This will be added to the end!")
 (conj my_vectors [1 2])
 
-// and lists...
+;; and lists...
 (def my_list '("Hi" "There" "Buddy"))
 (nth my_list 0)
 (nth my_list 2)
@@ -88,7 +89,7 @@
 (def my_other_list (list "some" "other" "elements" "in" "a" "list"))
 (conj my_other_list "added to the beginning!")
 
-// and sets...
+;; and sets...
 (def my_set #{"my name" 20 false :some_key})
 (conj my_set "my name")
 (conj my_set "my different name!")
@@ -100,22 +101,27 @@
 (:some_key my_set)
 (get my_set "my name")
 
-// and map-literals...
-(def my_person {:name "Rico" :age 21 :gender "male" :level "over 900" })
+;; and map-literals...
+(def my_person {:name "Rico" :age 21 :gender "male" :level "over 900"})
 (str "My level is " (get my_person :level))
-(str "Hello my name is " (get my_person :name) "." 
-  " I am " (get my_person :age) " years old and " 
-  "my level is " (get my_person :level))
+(str "Hello my name is " (get my_person :name) "."
+     " I am " (get my_person :age) " years old and "
+     "my level is " (get my_person :level))
 
-// and hash maps... 
+;; and hash maps... 
 (def my_level (hash-map :a " is over " :b 9000))
 (str "My level" (get my_level :a) (get my_level :b))
 
 (get my_level :c "this does not have value c")
 (def my_character {:character my_person :greetings my_greetings})
 (get-in my_character [:character :name])
-(my_person :name) 
+(my_person :name)
 (:name my_person)
-(:non_existent_key my_person "This is the default value")
+(:non_existent_key my_person
 
 
+
+                   "This is the default value")
+
+
+;; LET's do some functions shall we?! 
