@@ -68,6 +68,8 @@
 
 // and vectors...
 (def my_greetings ["Hi" "Hello" "Howdy" "How are you"])
+(get my_greetings 0)
+(get my_greetings 1)
 
 // and map-literals...
 (def my_person {:name "Rico" :age 21 :gender "male" :level "over 900" })
@@ -79,5 +81,12 @@
 // and hash maps... 
 (def my_level (hash-map :a " is over " :b 9000))
 (str "My level" (get my_level :a) (get my_level :b))
+
+(get my_level :c "this does not have value c")
+(def my_character {:character my_person :greetings my_greetings})
+(get-in my_character [:character :name])
+(my_person :name) 
+(:name my_person)
+(:non_existent_key my_person "This is the default value")
 
 
