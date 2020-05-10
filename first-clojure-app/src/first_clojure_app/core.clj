@@ -117,11 +117,27 @@
 (get-in my_character [:character :name])
 (my_person :name)
 (:name my_person)
-(:non_existent_key my_person
-
-
-
-                   "This is the default value")
-
+(:non_existent_key my_person "This is the default value")
 
 ;; LET's do some functions shall we?! 
+(+ 1 1 1 (- 1 3))
+(last my_greetings)
+(get my_person :name)
+(or 2 1)
+;; wait?! we have been doing functions all along? cool. 
+;; now on to some real functions
+
+;; this is how you define one
+(defn my_function [argument]
+  (str "This is your argument: " argument))
+;; note that it says defn not def! Subtle but important difference 
+
+;; this is how you call it
+(my_function "hello")
+
+(defn my_other_function [argument argument2 argument3]
+  (str argument " " argument2 " " argument3))
+(my_other_function "Hello" "there" "buddy")
+
+(defn variadic_func [argument & others]    (str argument " " (clojure.string/join " " others)))
+(variadic_func "Hi" "my" "friend" "you" "are" "cool")
