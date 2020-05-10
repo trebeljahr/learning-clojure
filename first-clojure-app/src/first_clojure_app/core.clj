@@ -1,23 +1,25 @@
 (ns first-clojure-app.core
   (:gen-class))
 
+;; the obligatory hello world °° 
 (defn greeting [greet]
   (str greet " World! You know - I am a little teapot!"))
-
 (greeting "Hello")
 
+;; some simple values - by themselves they do nothing. 
+;; one can not even access them anymore, when used this way
 1
 "a string"
 ["a" "vector" "of" "strings"]
 
+;; this does something at least. 
 (+ 1 2 3)
 
 (str "A" "B" "C"
      (if true
-       (do (str "D" " AND E!")))) j
+       (do (str "D" " AND E!"))))
 
-(when true (str "Success!"
-                " Something Else!"))
+(when true (str "Success!" " Something Else!"))
 
 ;; Conditionals 
 (if true
@@ -41,8 +43,6 @@
   "Nil is a lie!")
 
 ;; Logical operators!
-
-
 (= 1 -1)
 (= 1 1)
 (= nil 2)
@@ -125,7 +125,7 @@
 (get my_person :name)
 (or 2 1)
 ;; wait?! we have been doing functions all along? cool. 
-;; now on to some real functions
+;; now on to some "real" functions of our own doings.
 
 ;; this is how you define one
 (defn my_function [argument]
@@ -183,12 +183,9 @@
 ;; Clojure has argument destructuring for functions. Much like javascript... 
 ;; wait that is the wrong order - javascript has destructuring much like clojure/LISP
 (defn destructured
-  [[first_thing_in_vector & other_things_in_vector]]
-  (+ first_thing_in_vector (if (= other_things_in_vector nil)
-                             (destructured other_things_in_vector)
-                             (0))))
-(def some_numbers [1 2 3])
-(destructured some_numbers)
+  [[first_thing & other_things]]
+  (str first_thing " " (clojure.string/join " " other_things) "!!!!!!"))
+(destructured ["Scream" "this" "out" "loud"])
 
 (defn destructure_map
   [{key1 :key1 key2 :key2}]
@@ -200,6 +197,36 @@
   (str key1 " " key2 " " key3 " " key4 " cool!"))
 (destructure_keys {:key1 "Hello" :key2 "World" :key3 "this" :key4 "is"})
 
-;; some last comment!
+;; There are anonymous functions. They do not have a name and 
+(fn [arg] (str arg ""))
+;; our own inc. 
+(map (fn [arg] (+ arg 1)) [1 2 3])
+(map inc [1 2 3])
+;; another way to write these looks like this. it is super short. holy. 
+#(+ % 1)
+;; here is our inc. again ^^ this time even shorter and a little more cryptic
+(map #(+ % 1) [1 2 3])
 
+;; let's say you want to have more than one argument - well simple. 
+;; %1 is the first, %2 the second etc.
+(#(+ %1 %2 %3) 1 2 3)
+;; %& will access the rest of the values
+(#(map inc %&) 1 2 3)
+
+;; Here is closures - also very neat. 
+(defn give_me_a_closure [arg]
+  (fn [second_arg] (* second_arg arg)))
+(def multByTwo (give_me_a_closure 2))
+(multByTwo 4)
+(def multByThree (give_me_a_closure 3))
+(multByThree 4)
+(def multByFour (give_me_a_closure 4))
+(multByFour 4)
+
+;; some last comment - this is just a very simple cheat sheet showing all
+;; of the cool things there are in clojure but it is by no means an 
+;;extensive list and to be truly able to use this language you have
+;; to apply all of the things above confidently, combining them 
+;; into neat code that actually does cool stuff! So write something epic aaand...
+;; have fun! 
 
