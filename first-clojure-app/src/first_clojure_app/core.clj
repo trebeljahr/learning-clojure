@@ -71,6 +71,35 @@
 (get my_greetings 0)
 (get my_greetings 1)
 
+// vectors can contain mixed types 
+(def my_vectors ["HI" 0 true false -1 nil {:key "value"}])
+(my_vectors 0)
+(my_vectors 6)
+(get my_vectors 2)
+
+(conj my_vectors "This will be added to the end!")
+(conj my_vectors [1 2])
+
+// and lists...
+(def my_list '("Hi" "There" "Buddy"))
+(nth my_list 0)
+(nth my_list 2)
+
+(def my_other_list (list "some" "other" "elements" "in" "a" "list"))
+(conj my_other_list "added to the beginning!")
+
+// and sets...
+(def my_set #{"my name" 20 false :some_key})
+(conj my_set "my name")
+(conj my_set "my different name!")
+(def my_hash_set (hash-set 1 1 2 2))
+(def my_vectors_as_a_set (set my_vectors))
+(contains? my_set :some_key)
+(contains? my_set "my name")
+(contains? my_set "some other name?")
+(:some_key my_set)
+(get my_set "my name")
+
 // and map-literals...
 (def my_person {:name "Rico" :age 21 :gender "male" :level "over 900" })
 (str "My level is " (get my_person :level))
