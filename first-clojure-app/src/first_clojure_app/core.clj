@@ -223,6 +223,58 @@
 (def multByFour (give_me_a_closure 4))
 (multByFour 4)
 
+(let [x 3] x)
+
+(def names ["Alfredo" "Hans" "Günther"])
+(let [selected-names (take 3 names)] selected-names)
+;; let makes it's own scope - see how the def names does not conflict with the let names
+(let [names (take 2 names)] names)
+(let [[first-name & other-names] names] [first-name other-names])
+(def character ["Rico" "male" "blue eyes"])
+(let [[name & attributes] character] (recur attributes (into []) (set [name attribute])))
+
+;; the into operator inserts vectors into another vector
+(into [:a] (set [:b :b :c]))
+(into names ["Albert" "Einstein"])
+
+;; this is an example of a simple loop
+(loop [i 0]
+  (println (str "We are in iteration: " i))
+  (if (> i 3)
+    (println "Loop is over!")
+    (recur (inc i))))
+
+;; this is an example of a recursive function
+(defn recursive-fn ([] (recursive-fn 0))
+  ([number]
+   (println number)
+   (if (= number 3)
+     (println "Function call is over!")
+     (recursive-fn (+ number 1)))))
+
+(recursive-fn)
+
+;; there are also regular expressions - like this: 
+(def my_regex #"text")
+(re-find my_regex "This is a text!")
+
+;; we can replace things within strings using regex like so:
+(str (clojure.string/replace
+      "hello this is my text"
+      my_regex
+      "replacement"))
+
+;; there is also the Javascript style reduce
+(reduce + [2 3 4 5 6])
+(reduce str ["Hello " "world"])
+;; we can write our own reducers as well. this one sums up the strings and numbers of a list of maps
+(defn my_reducer [agg value] (let [out {:string (str (get agg :string) " " (get value :string))
+                                        :number (+ (get agg :number) (get value :number))}] out))
+(def to_be_reduced [{:string "Hello" :number 10} {:string "world" :number 5}])
+(reduce my_reducer {:string "" :number 0} to_be_reduced)
+;; when calling reduce the first arg is the function, the second the initial value and the third the list to be reduced
+;; the function passed in has to return something and is fed the aggregated value and the current value of the list
+
 ;; some last comment - this is just a very simple cheat sheet showing all
 ;; of the cool things there are in clojure but it is by no means an 
 ;;extensive list and to be truly able to use this language you have
