@@ -55,3 +55,18 @@
 (def variance (nth (stats deviations) 2))
 (def populationStandardDeviation (Math/sqrt variance))
 (str populationStandardDeviation)
+
+(def persons [{:name "Rico" :age 21} {:name "Ale" :age 34}])
+(map :name persons)
+(map :age persons)
+
+; let's mess with time! 
+(def years {:first 1981 :second 1956 :third 2012})
+(defn forwardOneYear [new-map [key val]]
+  (assoc new-map key (inc val)))
+(reduce forwardOneYear {} years)
+
+(defn forwardAThousandYears [new-map [key val]]
+  (assoc new-map key (+ 1000 val)))
+(reduce forwardAThousandYears {} years)
+; it's the future!!! 
