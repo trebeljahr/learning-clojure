@@ -128,3 +128,8 @@
 (filter bad jobs)
 (= (filter bad jobs) (myFilter bad jobs))
 
+; are there even good jobs?
+(some good jobs)
+; and good jobs among the bad ones?
+(some good (myFilter bad jobs))
+; well... nil. as you would expect.
