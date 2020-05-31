@@ -70,3 +70,61 @@
   (assoc new-map key (+ 1000 val)))
 (reduce forwardAThousandYears {} years)
 ; it's the future!!! 
+
+
+; building map using reduce 
+(defn myMap [func sq]
+  (reduce (fn [agg val]
+            (into agg [(func val)])) [] sq))
+(myMap inc [1 2 3])
+
+; building filter using reduce 
+(defn myFilter [func sq]
+  (reduce (fn [agg val]
+            (if (func val)
+              (into agg [val])
+              (let [x agg] x))) [] sq))
+(defn biggerThan3 [n] (> n 3))
+(biggerThan3 5)
+(myFilter biggerThan3 [1 2 3 4 5])
+
+
+; building some using reduce 
+
+
+(defn mySome [func sq]
+  (reduce
+   (fn [agg val]
+     (if (true? agg)
+       (let [out true] out)
+       (if (func val)
+         (let [agg true] agg)
+         (let [agg nil] agg))))
+   nil sq))
+(mySome even? '(1 2 3 4))
+
+; using take 
+(take 2 [10 9 8 7])
+; and drop
+(drop 2 [10 9 8 7])
+
+(def jobs [{:pay 1200 :job "Wordpress Site"}
+           {:pay 2500 :job "Shoppify Integration"}
+           {:pay 300 :job "Blog Maintenance"}
+           {:pay 800 :job "Photoshoot"}
+           {:pay 999 :job "Website Design"}
+           {:pay 1500 :job "Ghost Gatsby Site"}])
+
+(defn good [job] (> (:pay job) 1000))
+(defn bad [job] (< (:pay job) 1000))
+
+; the "good" jobs
+(myFilter good jobs)
+(filter good jobs)
+(= (filter good jobs) (myFilter good jobs))
+
+; the "bad" jobs
+(myFilter bad jobs)
+(filter bad jobs)
+(= (filter bad jobs) (myFilter bad jobs))
+
