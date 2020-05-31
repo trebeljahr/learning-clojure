@@ -18,7 +18,7 @@
                              {:name "left-achilles" :size 1}
                              {:name "left-foot" :size 2}])
 
-(defn generate-right
+(defn matching-part
   [part]
   {:name (clojure.string/replace (:name part) #"^left-" "right-")
    :size (:size part)})
@@ -33,9 +33,34 @@
       (let [[part & remaining] remaining-asym-parts]
         (recur remaining
                (into final-body-parts
-                     (set [part (generate-right part)])))))))
+                     (set [part (matching-part part)])))))))
 
 (symmetrize-body-parts asym-hobbit-body-parts)
+
+(defn better-symmetrize-body-parts
+  "Expects a seq of maps that have a :name and :size"
+  [asym-body-parts]
+  (reduce (fn [final-body-parts part]
+            (into final-body-parts (set [part (matching-part part)])))
+          []
+          asym-body-parts))
+
+(def spider-body [{:name "eye"} {:name "leg"} {:name "torso"}])
+(defn spiderify [part]
+  ; (def otherPart (matching-part part))
+  (if (some? (re-find #"arm|foot|leg|eye" (:name part)))
+    (let [out [part part part part part part]] out)
+    (let [out [part]] out)))
+
+(defn complete-spider
+  "Expects a seq of maps that have a :name and :size"
+  [asym-body-parts]
+  (reduce (fn [final-body-parts part]
+            (into final-body-parts (spiderify part)))
+          []
+          asym-body-parts))
+
+(complete-spider spider-body)
 
 (defn hit
   [asym-body-parts]
